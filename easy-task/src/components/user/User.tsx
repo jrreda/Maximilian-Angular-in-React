@@ -7,14 +7,22 @@ interface UserProps {
   onSelect?: () => void;
 }
 
-function User({ image, name, isSelected = false, onSelect = () => {} }: UserProps) {
+function User({
+  image,
+  name,
+  isSelected = false,
+  onSelect = () => { },
+}: UserProps) {
   return (
-    <div>
-      <button onClick={onSelect} className={isSelected ? 'active' : ''}>
-        <img src={image} alt={name} />
-        <span>{name}</span>
-      </button>
-    </div>
+    <button
+      type="button"
+      onClick={onSelect}
+      className={isSelected ? "active" : ""}
+      aria-pressed={isSelected}
+    >
+      <img src={image} alt={name} />
+      <span>{name}</span>
+    </button>
   );
 }
 
