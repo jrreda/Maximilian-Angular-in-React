@@ -1,4 +1,12 @@
-const dummyTasks = [
+export interface TaskProps {
+  id: string;
+  userId: string;
+  title: string;
+  summary: string;
+  dueDate: string;
+}
+
+const dummyTasks: TaskProps[] = [
   {
     id: 't1',
     userId: 'u1',

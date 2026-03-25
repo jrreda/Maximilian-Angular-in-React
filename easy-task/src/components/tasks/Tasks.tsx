@@ -1,13 +1,16 @@
 import "./Tasks.css";
+import type { TaskProps } from "./dummy-tasks";
 import type { UserProps } from "../user/dummy-users";
-import dummyTasks from "./dummy-tasks";
+import Task from "./task/Task";
+import { useTasks } from "../../hooks/useTasks";
 
 function Tasks({ selectedUser }: { selectedUser: UserProps | undefined }) {
-  if (!selectedUser) {
+  const { tasks, onCompleteTask } = useTasks(selectedUser);
+
+  // If no user is selected or no tasks are found, show a fallback message
+  if (!selectedUser || !tasks) {
     return <p id="fallback">Please select a user.</p>;
   }
-
-  const tasks = dummyTasks.filter((task) => task.userId === selectedUser.id);
 
   return (
     <section id="tasks">
@@ -18,15 +21,17 @@ function Tasks({ selectedUser }: { selectedUser: UserProps | undefined }) {
         </menu>
       </header>
 
+      {tasks.length > 0 ? (
       <ul>
-        {tasks.map((task) => (
+        {tasks.map((task: TaskProps) => (
           <li key={task.id} role="option">
-            <h3>{task.title}</h3>
-            <p>{task.summary}</p>
-            <button type="button">Delete</button>
+            <Task task={task} onCompleteTask={(id: string) => onCompleteTask(id)} />
           </li>
-        ))}
-      </ul>
+          ))}
+        </ul>
+      ) : (
+        <p id="fallback">No tasks found.</p>
+      )}
     </section>
   );
 }

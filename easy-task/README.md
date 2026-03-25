@@ -71,3 +71,6 @@ export default defineConfig([
   },
 ])
 ```
+
+## Resources
+- [set-state-in-effect](https://react.dev/reference/eslint-plugin-react-hooks/lints/set-state-in-effect)
