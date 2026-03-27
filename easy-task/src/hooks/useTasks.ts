@@ -1,5 +1,5 @@
 import { useState } from "react";
-import dummyTasks from "../components/tasks/dummy-tasks";
+import dummyTasks, { type TaskProps } from "../components/tasks/dummy-tasks";
 import type { UserProps } from "../components/user/dummy-users";
 
 export const useTasks = (selectedUser: UserProps | undefined) => {
@@ -13,8 +13,13 @@ export const useTasks = (selectedUser: UserProps | undefined) => {
     setCompletedTaskIds((prev) => [...prev, id]);
   };
 
-  return {
-    tasks,
-    onCompleteTask,
+  const onAddTask = (task: TaskProps, userId: string) => {
+    console.log(`Adding task ${task.title}`);
+    dummyTasks.push({
+      ...task,
+      userId,
+    });
   };
+
+  return { tasks, onCompleteTask, onAddTask };
 };
